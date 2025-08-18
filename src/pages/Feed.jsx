@@ -19,7 +19,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { Navigate } from "react-router";
 import { setUser } from "../features/userInfoSlice";
 
-const WelcomePage = () => {
+const Feed = () => {
   const auth = getAuth();
   const [description, setDescription] = useState("");
   const db = getDatabase();
@@ -105,7 +105,7 @@ const WelcomePage = () => {
     });
     toast.success("Updated");
   };
-
+if (!user) return <Navigate to="/"/>
   if (!verified) return <div>Please Verify Your Email</div>;
 
   return (
@@ -196,4 +196,4 @@ const WelcomePage = () => {
   );
 };
 
-export default WelcomePage;
+export default Feed;

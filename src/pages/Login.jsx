@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Container from '../layouts/Container'
 import Flex from '../layouts/Flex'
 import LogoLarge from '../layouts/LogoLarge'
@@ -7,6 +7,8 @@ import toast, { Toaster } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../features/userInfoSlice';
+import Aos from "aos";
+import "aos/dist/aos.css";
 
 
 const Login = () => {
@@ -19,6 +21,9 @@ const Login = () => {
   const auth = getAuth();
   const navigate=useNavigate()
   const dispatch= useDispatch()
+    useEffect(() => {
+    Aos.init();
+  }, []);
 
   const submitHandler=()=>{
     if (!email) {
@@ -33,7 +38,7 @@ signInWithEmailAndPassword(auth, email, password)
     toast.success("Login Successfull")
     dispatch(setUser(userCredential.user))
     setTimeout(() => {
-      navigate("/")
+      navigate("/feed")
     }, 1500);
   })
   .catch((error) => {
@@ -48,9 +53,9 @@ signInWithEmailAndPassword(auth, email, password)
       <Toaster position='top-right'/>
       <Container>
     <Flex><LogoLarge/></Flex>
-    <div className='bg-white p-[24px] mx-auto rounded-lg w-[40%]'>
-      <h2 className='text-[32px] font-medium'>Sign in</h2>
-      <div className='mb-[16px]'>
+    <div data-aos="fade-up" className='bg-white p-[24px] mx-auto rounded-lg w-[40%]'>
+      <h2  className='text-[32px] font-medium'>Sign in</h2>
+      <div  className='mb-[16px]'>
       <label className='font-medium' htmlFor="">Email</label>
       <input value={email} onChange={(e)=>{
         setEmail(e.target.value)

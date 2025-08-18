@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "../layouts/Container";
 import Flex from "../layouts/Flex";
 import LogoLarge from "../layouts/LogoLarge";
@@ -11,6 +11,8 @@ import {
 import toast, { Toaster } from "react-hot-toast";
 import { Link, useNavigate } from "react-router";
 import { getDatabase, ref, set } from "firebase/database";
+import Aos from "aos";
+import "aos/dist/aos.css";
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -22,6 +24,9 @@ const Signup = () => {
   const auth = getAuth();
   const navigate = useNavigate();
   const db = getDatabase();
+    useEffect(() => {
+    Aos.init();
+  }, []);
 
   const submitHandler = () => {
     if (!name) {
@@ -66,10 +71,10 @@ const Signup = () => {
         <Flex>
           <LogoLarge />
         </Flex>
-        <h2 className="text-[32px] text-[#000000e6] my-6 text-center text-medium">
+        <h2 data-aos="fade-down" className="text-[32px] text-[#000000e6] my-6 text-center text-medium">
           Make the most of your professional life
         </h2>
-        <div className="bg-white p-[24px] mx-auto rounded-lg w-[400px]">
+        <div data-aos="fade-up" className="bg-white p-[24px] mx-auto rounded-lg w-[400px]">
           <div className="mb-[16px]">
             <label className="font-medium text-[14px]" htmlFor="">
               Name

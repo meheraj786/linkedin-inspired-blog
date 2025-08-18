@@ -4,11 +4,12 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import RootLayout from "./layouts/RootLayout";
-import WelcomePage from "./pages/WelcomePage";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
+import Welcome from "./pages/welcome";
+import Feed from "./pages/feed";
 
 function App() {
   const router = createBrowserRouter([
@@ -18,7 +19,11 @@ function App() {
       children: [
         {
           index: true,
-          element: <WelcomePage />,
+          element:  <Welcome />,
+        },
+        {
+          path: "/feed",
+          element: <Feed />,
         },
       ],
     },
