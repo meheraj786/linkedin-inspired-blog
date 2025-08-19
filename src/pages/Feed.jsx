@@ -18,6 +18,12 @@ import moment from "moment";
 import toast, { Toaster } from "react-hot-toast";
 import { Navigate } from "react-router";
 import { setUser } from "../features/userInfoSlice";
+import Container from "../layouts/Container";
+import Flex from "../layouts/Flex";
+import ProfileInfoSidebar from "../layouts/ProfileInfoSidebar";
+import PostForm from "../components/PostForm/PostForm";
+import AddUser from "../components/AddUser/AddUser";
+import PostList from "../components/PostList.jsx/PostList";
 
 const Feed = () => {
   const auth = getAuth();
@@ -83,17 +89,7 @@ const Feed = () => {
     });
   };
 
-  const postHandler = () => {
-    console.log("post");
-    set(push(ref(db, "post/")), {
-      content: description,
-      whoPostName: user?.displayName,
-      whoPostId: user?.uid,
-      time: moment().format(),
-    }).then(() => {
-      toast.success("Post Successfull");
-    });
-  };
+
 
   const deleteHandler = (item) => {
     remove(ref(db, "post/" + item.id));
@@ -109,89 +105,102 @@ if (!user) return <Navigate to="/"/>
   if (!verified) return <div>Please Verify Your Email</div>;
 
   return (
-    <div>
-      <Toaster position="top-right" />
-      <p>{user?.uid}</p>
-      {editName ? (
-        <input
-          type="text"
-          value={editedNameText}
-          onChange={(e) => setEditedNameText(e.target.value)}
-        />
-      ) : (
-        <p>{user?.displayName}</p>
-      )}
-      {editName ? (
-        <button
-          onClick={() => {
-            updateNameHandler();
-            setEditName(false);
-          }}
-        >
-          Save
-        </button>
-      ) : (
-        <button onClick={() => setEditName(true)}>Edit Name</button>
-      )}
+    // <div>
+    //   <Toaster position="top-right" />
+    //   <p>{user?.uid}</p>
+    //   {editName ? (
+    //     <input
+    //       type="text"
+    //       value={editedNameText}
+    //       onChange={(e) => setEditedNameText(e.target.value)}
+    //     />
+    //   ) : (
+    //     <p>{user?.displayName}</p>
+    //   )}
+    //   {editName ? (
+    //     <button
+    //       onClick={() => {
+    //         updateNameHandler();
+    //         setEditName(false);
+    //       }}
+    //     >
+    //       Save
+    //     </button>
+    //   ) : (
+    //     <button onClick={() => setEditName(true)}>Edit Name</button>
+    //   )}
 
-      <p>{user?.email}</p>
-      <p>{user?.emailVerified}</p>
-      {verified ? "User is Verified" : "User is not verified"}
-      {/* {
-        users.map((item)=>(
-          <>
-          <p>{item?.username}</p>
-          <p>{item?.email}</p>
-          </>
-        ))
-      } */}
-      <div>
-        <textarea
-          name=""
-          onKeyDown={(e) => e.key == "Enter" && postHandler()}
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          className="border"
-          placeholder="Write Whats your mind"
-          id=""
-        ></textarea>
-        <button onClick={postHandler}>Post</button>
-      </div>
-      <hr />
-      {posts.map((item) => (
-        <>
-          <p>{item?.whoPostName}</p>
-          <p>{moment(item?.time).fromNow()}</p>
-          {editMode && selectedPost.id == item.id ? (
-            <textarea
-              name=""
-              onKeyDown={(e) => e.key == "Enter" && updateHandler()}
-              value={editedText}
-              onChange={(e) => setEditText(e.target.value)}
-              className="border"
-              placeholder="Write Whats your mind"
-              id=""
-            ></textarea>
-          ) : (
-            <p>{item?.content}</p>
-          )}
-          <button onClick={() => deleteHandler(item)}>Delete</button>
-          {editMode && selectedPost.id == item.id ? (
-            <button onClick={() => updateHandler(item)}>Save</button>
-          ) : (
-            <button
-              onClick={() => {
-                setSelectedPost(item);
-                setEditMode(true);
-                setEditText(item.content);
-              }}
-            >
-              Edit
-            </button>
-          )}
-          <hr />
-        </>
-      ))}
+    //   <p>{user?.email}</p>
+    //   <p>{user?.emailVerified}</p>
+    //   {verified ? "User is Verified" : "User is not verified"}
+    //   {/* {
+    //     users.map((item)=>(
+    //       <>
+    //       <p>{item?.username}</p>
+    //       <p>{item?.email}</p>
+    //       </>
+    //     ))
+    //   } */}
+    //   <div>
+    //     <textarea
+    //       name=""
+    //       onKeyDown={(e) => e.key == "Enter" && postHandler()}
+    //       value={description}
+    //       onChange={(e) => setDescription(e.target.value)}
+    //       className="border"
+    //       placeholder="Write Whats your mind"
+    //       id=""
+    //     ></textarea>
+    //     <button onClick={postHandler}>Post</button>
+    //   </div>
+    //   <hr />
+    //   {posts.map((item) => (
+    //     <>
+    //       <p>{item?.whoPostName}</p>
+    //       <p>{moment(item?.time).fromNow()}</p>
+    //       {editMode && selectedPost.id == item.id ? (
+    //         <textarea
+    //           name=""
+    //           onKeyDown={(e) => e.key == "Enter" && updateHandler()}
+    //           value={editedText}
+    //           onChange={(e) => setEditText(e.target.value)}
+    //           className="border"
+    //           placeholder="Write Whats your mind"
+    //           id=""
+    //         ></textarea>
+    //       ) : (
+    //         <p>{item?.content}</p>
+    //       )}
+    //       <button onClick={() => deleteHandler(item)}>Delete</button>
+    //       {editMode && selectedPost.id == item.id ? (
+    //         <button onClick={() => updateHandler(item)}>Save</button>
+    //       ) : (
+    //         <button
+    //           onClick={() => {
+    //             setSelectedPost(item);
+    //             setEditMode(true);
+    //             setEditText(item.content);
+    //           }}
+    //         >
+    //           Edit
+    //         </button>
+    //       )}
+    //       <hr />
+    //     </>
+    //   ))}
+    // </div>
+    <div className="bg-bg w-full min-h-[100vh] pt-[24px]">
+    <Container>
+      <Flex className="items-start">
+        <ProfileInfoSidebar />
+        <Flex className="flex-col mx-auto">
+        <PostForm />
+        <PostList/>
+
+        </Flex>
+        <AddUser/>
+      </Flex>
+    </Container>
     </div>
   );
 };

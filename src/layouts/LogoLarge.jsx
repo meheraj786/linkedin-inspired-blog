@@ -7,8 +7,8 @@ import { Link } from 'react-router'
 const LogoLarge = ({className}) => {
   return (
     <Link to="/">
-    <div className={`w-[141px] ${className}`}>
-      <img className='w-full' src={LinkedinLogo} alt="" />
+    <div className={`w-[41px] border ${className}`}>
+      <img className='w-[41px]' src={LinkedinLogo} alt="" />
     </div>
     </Link>
   )
