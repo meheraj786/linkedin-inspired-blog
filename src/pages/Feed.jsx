@@ -24,6 +24,7 @@ import ProfileInfoSidebar from "../layouts/ProfileInfoSidebar";
 import PostForm from "../components/PostForm/PostForm";
 import AddUser from "../components/AddUser/AddUser";
 import PostList from "../components/PostList.jsx/PostList";
+import CustomLoader from "../layouts/CustomLoader";
 
 const Feed = () => {
   const auth = getAuth();
@@ -39,10 +40,12 @@ const Feed = () => {
   const [editedText, setEditText] = useState("");
   const [editName, setEditName] = useState(false);
   const [editedNameText, setEditedNameText] = useState(user?.displayName);
+  const [loading, setLoading]= useState(true)
 
   onAuthStateChanged(auth, (user) => {
     if (user.emailVerified) {
       setVerified(true);
+      setLoading(false)
     }
   });
   useEffect(() => {
@@ -101,6 +104,8 @@ const Feed = () => {
     });
     toast.success("Updated");
   };
+  if (loading) return <CustomLoader/>
+  
 if (!user) return <Navigate to="/"/>
   if (!verified) return <div>Please Verify Your Email</div>;
 

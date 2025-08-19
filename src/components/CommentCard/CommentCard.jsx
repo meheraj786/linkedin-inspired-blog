@@ -4,7 +4,7 @@ import Flex from '../../layouts/Flex';
 
 const CommentCard = () => {
   return (
-    <div className="bg-white border-l-2 border-gray-100 pl-4 py-3 max-w-2xl">
+    <div className="bg-white border-l-2 border-gray-100 px-4 py-3 max-w-2xl">
       {/* Comment Header */}
       <div className="flex items-start space-x-3">
         {/* Profile Picture */}
