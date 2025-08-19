@@ -196,12 +196,11 @@ if (!user) return <Navigate to="/"/>
     // </div>
     <div className="bg-bg w-full min-h-[100vh] pt-[24px]">
     <Container>
-      <Flex className="items-start">
+      <Flex className="items-start justify-between">
         <ProfileInfoSidebar />
-        <Flex className="flex-col mx-auto">
+        <Flex className="flex-col justify-center items-center mx-auto">
         <PostForm />
         <PostList/>
-
         </Flex>
         <AddUser/>
       </Flex>

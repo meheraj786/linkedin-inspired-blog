@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Heart, MessageCircle, Repeat2, Send, MoreHorizontal, ThumbsUp, Users, Globe } from 'lucide-react';
 import CommentCard from '../CommentCard/CommentCard';
+import CommentForm from '../commentFrom/CommentForm';
 
 const PostCard = () => {
   const [liked, setLiked] = useState(false);
@@ -12,7 +13,7 @@ const PostCard = () => {
   };
 
   return (
-    <div className="w-[555px] mt-2 mx-auto font-primary bg-white rounded-lg border border-gray-200 shadow-sm">
+    <div className="w-[555px] border border-border mt-2 mx-auto font-primary bg-white rounded-lg border border-gray-200 shadow-sm">
       {/* Post Header */}
       <div className="p-4 pb-2">
         <div className="flex items-center justify-between">
@@ -121,6 +122,7 @@ const PostCard = () => {
           </button>
         </div>
       </div>
+      <CommentForm/>
       <CommentCard/>
     </div>
   );

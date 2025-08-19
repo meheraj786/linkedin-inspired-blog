@@ -6,10 +6,12 @@ import { getDatabase, push, ref, set } from "firebase/database";
 import moment from "moment";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
+import PostCreationModal from "../../layouts/PostCreationModal";
 
 const PostForm = () => {
   const [description, setDescription] = useState("");
   const db = getDatabase();
+  const [postModalShow, setPostModalShow]= useState(false)
   const [posts, setPosts] = useState([]);
   const user = useSelector((state) => state.userInfo.value);
 
@@ -26,10 +28,13 @@ const PostForm = () => {
     });
   };
   return (
-    <div className="w-[555px] font-primary bg-white rounded-[8px] py-3 px-4 pb-1 mx-auto">
+    <div className="w-[555px] border border-border font-primary bg-white rounded-[8px] py-3 px-4 pb-1 mx-auto">
+      {
+        postModalShow && <PostCreationModal onClose={setPostModalShow}/>
+      }
       <Flex className="gap-x-2">
         <div className="w-[48px] bg-green-400 h-[48px] rounded-full"></div>
-        <div className="flex-1 border border-[#AAAAAA] bg-white rounded-full px-5 py-3">
+        <div onClick={()=>setPostModalShow(true)} className="flex-1 border cursor-pointer border-[#AAAAAA] bg-white rounded-full px-5 py-3">
           <span className="text-[14px] font-semibold">Share a Post</span>
         </div>
       </Flex>

@@ -3,7 +3,7 @@ import { FaLinkedin } from 'react-icons/fa'
 
 const LogoSmall = ({className}) => {
   return (
-    <FaLinkedin  className={`text-primary text-[41px] ${className}`} />
+    <FaLinkedin  className={`text-primary text-[38px] ${className}`} />
   )
 }
 

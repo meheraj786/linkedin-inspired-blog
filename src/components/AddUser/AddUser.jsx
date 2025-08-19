@@ -5,12 +5,12 @@ import { Plus, Check } from "lucide-react";
 
 const AddUser = () => {
   return (
-    <div className="w-[300px] mx-auto p-3 rounded-[8px] bg-white">
+    <div className="w-[300px] border border-border p-3 rounded-[8px] bg-white">
       <Flex className="items-center">
         <h2 className="font-semibold mb-4">Add to your feed</h2>
         <BsInfoSquareFill size={12} />
       </Flex>
-      <div className="bg-white rounded-lg p-4 max-w-sm">
+      <div className="bg-white rounded-lg max-w-sm">
         <div className="flex items-center justify-between">
           {/* Company Info */}
           <div className="flex items-start space-x-3">
@@ -30,7 +30,7 @@ const AddUser = () => {
               <button
                 // onClick={handleFollow}
                 className={`flex mt-1 items-center space-x-1 px-4 py-1.5 border rounded-full text-sm font-semibold transition-all duration-200 
-               'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 hover:border-gray-400'
+              'bg-white   hover:bg-gray-50 hover:border-gray-400'
           }`}
               >
                 <>

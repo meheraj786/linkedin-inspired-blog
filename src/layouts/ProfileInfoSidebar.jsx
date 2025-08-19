@@ -7,8 +7,8 @@ import { PiBookmarkSimpleFill } from "react-icons/pi";
 const ProfileInfoSidebar = () => {
   
   return (
-    <div className="flex flex-col">
-      <div className="bg-white w-[225px] rounded-[8px]">
+    <div className="flex flex-col ">
+      <div className="bg-white w-[225px] border border-border rounded-[8px]">
         <div className="top">
           <div className="cover relative rounded-t-[8px] bg-blue-400 h-[58px] w-full">
             <div className="bg-green-500 left-[16px] -bottom-[44px] absolute w-[72px] h-[72px] rounded-full"></div>
@@ -25,11 +25,11 @@ const ProfileInfoSidebar = () => {
           <p className="text-[12px] text-gray">Working At</p>
         </div>
       </div>
-      <div className="bg-white p-4 mt-2 w-[225px] rounded-[8px]">
+      <div className="bg-white border border-border p-4 mt-2 w-[225px] rounded-[8px]">
         <p className="text-[12px] mb-3">Profile Views</p>
         <p className="text-[12px]">View All Analytics</p>
       </div>
-            <div className="bg-white p-4 mt-2 w-[225px] rounded-[8px]">
+            <div className="bg-white border border-border p-4 mt-2 w-[225px] rounded-[8px]">
         <p className="text-[12px] flex items-center"> <PiBookmarkSimpleFill className="mr-2" /> Save Items</p>
         <p className="text-[12px] flex items-center my-4"> <MdGroups className="mr-2" />
 Groups</p>
