@@ -31,8 +31,7 @@ const Feed = () => {
   const [description, setDescription] = useState("");
   const db = getDatabase();
   const [posts, setPosts] = useState([]);
-  const [users, setUsers] = useState([]);
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
   const [verified, setVerified] = useState(false);
   const user = useSelector((state) => state.userInfo.value);
   const [editMode, setEditMode] = useState(false);
@@ -40,26 +39,15 @@ const Feed = () => {
   const [editedText, setEditText] = useState("");
   const [editName, setEditName] = useState(false);
   const [editedNameText, setEditedNameText] = useState(user?.displayName);
-  const [loading, setLoading]= useState(true)
+  const [loading, setLoading] = useState(true);
 
   onAuthStateChanged(auth, (user) => {
-    if (user.emailVerified) {
+    if (user?.emailVerified) {
       setVerified(true);
-      setLoading(false)
+      setLoading(false);
     }
   });
-  useEffect(() => {
-    const userRef = ref(db, "users/");
-    onValue(userRef, (snapshot) => {
-      let arr = [];
-      snapshot.forEach((data) => {
-        const user = data.val();
-        const usersId = data.key;
-        arr.push({ ...user, id: usersId });
-      });
-      setUsers(arr);
-    });
-  }, []);
+  
   useEffect(() => {
     const postRef = ref(db, "post/");
     onValue(postRef, (snapshot) => {
@@ -77,7 +65,7 @@ const Feed = () => {
     updateProfile(auth.currentUser, {
       displayName: editedNameText,
     }).then(() => {
-      dispatch(setUser(auth.currentUser))
+      dispatch(setUser(auth.currentUser));
       update(ref(db, "users/" + user?.uid), {
         username: editedNameText,
       });
@@ -92,8 +80,6 @@ const Feed = () => {
     });
   };
 
-
-
   const deleteHandler = (item) => {
     remove(ref(db, "post/" + item.id));
     toast.success("Deleted");
@@ -104,14 +90,13 @@ const Feed = () => {
     });
     toast.success("Updated");
   };
-  if (loading) return <CustomLoader/>
-  
-if (!user) return <Navigate to="/"/>
-  if (!verified) return <div>Please Verify Your Email</div>;
+  if (!user) return <Navigate to="/" />;
+  if (loading) return <CustomLoader />;
+  if (user && !verified) return <div>Please Verify Your Email</div>;
 
   return (
     // <div>
-    //   <Toaster position="top-right" />
+    //   
     //   <p>{user?.uid}</p>
     //   {editName ? (
     //     <input
@@ -195,16 +180,17 @@ if (!user) return <Navigate to="/"/>
     //   ))}
     // </div>
     <div className="bg-bg w-full min-h-[100vh] pt-[24px]">
-    <Container>
-      <Flex className="items-start justify-between">
-        <ProfileInfoSidebar />
-        <Flex className="flex-col justify-center items-center mx-auto">
-        <PostForm />
-        <PostList/>
+      <Toaster position="top-right" />
+      <Container>
+        <Flex className="items-start justify-between">
+          <ProfileInfoSidebar />
+          <Flex className="flex-col justify-center items-center mx-auto">
+            <PostForm />
+            <PostList />
+          </Flex>
+          <AddUser />
         </Flex>
-        <AddUser/>
-      </Flex>
-    </Container>
+      </Container>
     </div>
   );
 };

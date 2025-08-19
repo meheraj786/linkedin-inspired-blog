@@ -17,23 +17,29 @@ const PostForm = () => {
 
 
   const postHandler = () => {
-    console.log("post");
     set(push(ref(db, "post/")), {
       content: description,
       whoPostName: user?.displayName,
+      postImg: "",
       whoPostId: user?.uid,
+      whoPostImg: user?.photoURL || "",
+      whoPostWorkAt:user?.workingAt || "",
       time: moment().format(),
     }).then(() => {
       toast.success("Post Successfull");
+      setDescription("")
+      setPostModalShow(false)
     });
   };
   return (
     <div className="w-[555px] border border-border font-primary bg-white rounded-[8px] py-3 px-4 pb-1 mx-auto">
       {
-        postModalShow && <PostCreationModal onClose={setPostModalShow}/>
+        postModalShow && <PostCreationModal user={user} postHandler={postHandler} description={description} setDescription={setDescription} onClose={setPostModalShow}/>
       }
       <Flex className="gap-x-2">
-        <div className="w-[48px] bg-green-400 h-[48px] rounded-full"></div>
+        <div className="w-[48px] bg-bg h-[48px] flex justify-center items-center text-[26px] font-medium rounded-full">
+          {user?.photoURL ? <img src={user?.PhotoURL} className="w-full h-full object-center object-cover" alt="" /> : <span>{user?.displayName?.charAt(0).toUpperCase()}</span> }
+        </div>
         <div onClick={()=>setPostModalShow(true)} className="flex-1 border cursor-pointer border-[#AAAAAA] bg-white rounded-full px-5 py-3">
           <span className="text-[14px] font-semibold">Share a Post</span>
         </div>

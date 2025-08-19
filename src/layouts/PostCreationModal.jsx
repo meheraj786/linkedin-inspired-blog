@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { X, ChevronDown, Smile, Image, Calendar, Award, Plus, Clock } from 'lucide-react';
 
-const PostCreationModal = ({onClose}) => {
-  const [postText, setPostText] = useState('');
+const PostCreationModal = ({onClose, user, description, postHandler, setDescription}) => {
 
 
   return (
@@ -11,16 +10,17 @@ const PostCreationModal = ({onClose}) => {
         {/* Modal Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-200">
           <div className="flex items-center pl-[24px] pt-5 space-x-3">
-            <div className="relative ">
-              <img 
+            <div className="relative w-12 h-12 rounded-full text-[26px] flex justify-cemter items-center">
+              {/* <img 
                 src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" 
                 alt="Mehraj H."
-                className="w-12 h-12 rounded-full object-cover"
-              />
+                className=" object-cover"
+              /> */}
+              {user?.photoURL ? <img src={user?.PhotoURL} className="w-full h-full object-center object-cover" alt="" /> : <span>{user?.displayName?.charAt(0).toUpperCase()}</span> }
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <h3 className="font-semibold text-gray-900">Mehraj H.</h3>
+                <h3 className="font-semibold text-gray-900">{user?.displayName}</h3>
               </div>
               <p className="text-sm text-gray-600">Post to Anyone</p>
             </div>
@@ -36,8 +36,8 @@ const PostCreationModal = ({onClose}) => {
         {/* Post Content Area */}
         <div className="p-4  flex-1 min-h-96 overflow-y-auto">
           <textarea
-            value={postText}
-            onChange={(e) => setPostText(e.target.value)}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
             placeholder="What do you want to talk about?"
             className="w-full resize-none border-none outline-none text-[18px] text-gray-800 placeholder-gray-500 text-lg min-h-78"
           />
@@ -63,12 +63,13 @@ const PostCreationModal = ({onClose}) => {
             {/* Right side - Schedule and Post buttons */}
             <div className="flex items-center space-x-3">
               <button 
+              onClick={postHandler}
                 className={`px-6 py-2 rounded-full font-medium transition-colors ${
-                  postText.trim() 
-                    ? 'bg-blue-600 text-white hover:bg-blue-700' 
+                  description.trim() 
+                    ? 'bg-primary text-white hover:bg-blue-700' 
                     : 'bg-gray-200 text-gray-400 cursor-not-allowed'
                 }`}
-                disabled={!postText.trim()}
+                disabled={!description.trim()}
               >
                 Post
               </button>

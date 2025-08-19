@@ -1,8 +1,14 @@
 import React, { useState } from 'react'
 import { Image, Smile, Upload } from 'lucide-react';
+import { useSelector } from 'react-redux';
+import { getDatabase, push, ref, set } from 'firebase/database';
+import moment from 'moment';
+import toast from 'react-hot-toast';
 
-const CommentForm = () => {
+const CommentForm = ({post}) => {
     const [comment, setComment] = useState('');
+    const user = useSelector((state) => state.userInfo.value);
+    const db=getDatabase()
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -11,12 +17,27 @@ const CommentForm = () => {
       setComment('');
     }
   };
+    const commentHandler = () => {
+    set(push(ref(db, "comment/")), {
+      content: comment,
+      whoCommentName: user?.displayName,
+      postId: post.id,
+      whoCommentId: user?.uid,
+      whoCommentImg: user?.photoURL || "",
+      whoCommentWorkAt:user?.workingAt || "",
+      time: moment().format(),
+    }).then(() => {
+      toast.success("Comment Submitted");
+      setComment("")
+    });
+  };
   return (
       <div className="bg-white rounded-2xl p-4">
         <div className="flex items-center gap-[10px]">
           {/* Profile Picture */}
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center flex-shrink-0">
-            <span className="text-white font-semibold text-sm">A</span>
+          <div className="w-8 h-8 rounded-full bg-bg flex items-center justify-center flex-shrink-0">
+            {user?.photoURL ? <img src={user?.PhotoURL} className="w-full h-full object-center object-cover" alt="" /> : <span>{user?.displayName?.charAt(0).toUpperCase()}</span> }
+
           </div>
 
           {/* Input Container */}
@@ -30,7 +51,7 @@ const CommentForm = () => {
                   onChange={(e) => setComment(e.target.value)}
                   onKeyPress={(e) => {
                     if (e.key === 'Enter') {
-                      handleSubmit(e);
+                      commentHandler();
                     }
                   }}
                   className="flex-1 bg-transparent p-[10px] text-[14px] text-gray-700 placeholder-gray-500 outline-none rounded-full"
@@ -69,8 +90,8 @@ const CommentForm = () => {
               {/* Submit button (appears when typing) */}
               {comment.trim() && (
                 <button
-                  onClick={handleSubmit}
-                  className="  bg-blue-500 hover:bg-blue-600 text-white px-4 py-1.5 rounded-full text-sm font-medium transition-colors"
+                  onClick={commentHandler}
+                  className="  bg-primary hover:bg-blue-600 text-white px-4 py-1.5 rounded-full text-sm font-medium transition-colors"
                 >
                   Post
                 </button>

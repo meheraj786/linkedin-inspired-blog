@@ -46,11 +46,16 @@ const Signup = () => {
         sendEmailVerification(auth.currentUser);
         updateProfile(auth.currentUser, {
           displayName: name,
+          workingAt:""
         });
         set(ref(db, "users/" + userCredential.user.uid), {
           username: name,
           email: email,
           bio: "",
+          location:"",
+          profileImage:"",
+          coverImage:"",
+          workingAt: "",
         });
         setTimeout(() => {
           navigate("/login");
@@ -65,7 +70,7 @@ const Signup = () => {
 
   };
   return (
-    <div className="bg-bg font-primary w-full h-[100vh]">
+    <div className="bg-bg font-primary w-full pt-10 h-[100vh]">
       <Toaster position="top-right" />
       <Container>
         <Flex>

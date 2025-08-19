@@ -1,10 +1,26 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PostCard from '../PostCard/PostCard'
 import { ChevronDown } from 'lucide-react';
+import { getDatabase, onValue, ref } from 'firebase/database';
 
 const PostList = () => {
     const [isOpen, setIsOpen] = useState(false);
   const [selectedSort, setSelectedSort] = useState('Top');
+  const [posts, setPosts]= useState([])
+  const db= getDatabase()
+
+  useEffect(() => {
+      const postRef = ref(db, "post/");
+      onValue(postRef, (snapshot) => {
+        let arr = [];
+        snapshot.forEach((item) => {
+          const post = item.val();
+          const postId = item.key;
+          arr.unshift({ ...post, id: postId });
+        });
+        setPosts(arr);
+      });
+    }, []);
 
   const sortOptions = ['Top', 'Recent', 'Following'];
 
@@ -56,10 +72,12 @@ const PostList = () => {
         </div>
       </div>
 
-      <PostCard/>
-      <PostCard/>
-      <PostCard/>
-      <PostCard/>
+      {
+        posts.map((post)=>(
+          <PostCard post={post}/>
+
+        ))
+      }
     </div>
   )
 }

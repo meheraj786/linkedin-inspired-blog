@@ -49,7 +49,7 @@ signInWithEmailAndPassword(auth, email, password)
     
   }
   return (
-    <div className='bg-bg font-primary w-full h-[100vh]'>
+    <div className='bg-bg font-primary w-full pt-10 h-[100vh]'>
       <Toaster position='top-right'/>
       <Container>
     <Flex><LogoLarge/></Flex>

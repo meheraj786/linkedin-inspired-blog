@@ -3,14 +3,19 @@ import Container from "../layouts/Container";
 import Flex from "../layouts/Flex";
 import bannerImg from "../assets/bannerImg.svg";
 import { BsGoogle } from "react-icons/bs";
-import { Link } from "react-router";
+import { Link, Navigate } from "react-router";
 import Aos from "aos";
 import "aos/dist/aos.css";
+import { useSelector } from "react-redux";
 
 const Welcome = () => {
+  const user = useSelector((state) => state.userInfo.value);
   useEffect(() => {
     Aos.init();
   }, []);
+
+  if (user) return <Navigate to="/feed"/>
+
   return (
     <div className="pt-[48px]  pb-[140px]">
       <Container>
