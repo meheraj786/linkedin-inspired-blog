@@ -17,7 +17,7 @@ const Welcome = () => {
   if (user) return <Navigate to="/feed"/>
 
   return (
-    <div className="pt-[48px]  pb-[140px]">
+    <div className="pt-[48px] pb-[140px]">
       <Container>
         <Flex className="items-start">
           <div data-aos="fade-up" className="w-1/2">

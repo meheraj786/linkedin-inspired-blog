@@ -11,15 +11,27 @@ import { FaLaptop } from "react-icons/fa";
 import LogoSmall from "../../layouts/LogoSmall";
 
 import { ChevronDown, Crown, Search } from "lucide-react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AiFillHome } from "react-icons/ai";
 import { Link, NavLink } from "react-router";
+import { getAuth, signOut } from "firebase/auth";
+import { setUser } from "../../features/userInfoSlice";
 
 const Navbar = () => {
   const user = useSelector((state) => state.userInfo.value);
+  const dispatch= useDispatch()
+  const auth= getAuth()
 
   const [isOpen, setIsOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
+  const signoutHandler=()=>{
+    setIsOpen(false)
+    signOut(auth).then(() => {
+  dispatch(setUser(null))
+}).catch((error) => {
+  // An error happened.
+});
+  }
   return (
     <div>
       <Container>
@@ -116,13 +128,19 @@ const Navbar = () => {
                 <FaLaptop className="mx-auto  text-[24px]" />
                 <span className="text-[12px]">Get the app</span>
               </div>
-              <button className="p-3 px-6 hover:bg-gray">Join now</button>
+              <Link to="/signup">
+              
+              <button className="p-3 px-6 hover:bg-bg">Join now</button>
+              </Link>
               {/* {
               data
             } */}
+            <Link to="/login">
               <button className="p-3 px-6 hover:bg-primary hover:text-white cursor-pointer transition-colors duration-200 border rounded-full border-primary text-primary">
                 Sign in
               </button>
+            
+            </Link>
             </Flex>
           )}
 
@@ -149,7 +167,7 @@ const Navbar = () => {
                       {user?.displayName}
                     </h3>
                     <p className="text-[14px]  mt-1 leading-relaxed">
-                      {user?.bio}
+                      {user?.bio || "No Bio Yet"}
                     </p>
                   </div>
                 </div>
@@ -214,7 +232,7 @@ const Navbar = () => {
 
               {/* Sign Out */}
               <div className="py-2 border-t border-gray-100">
-                <div className="px-4 py-2 hover:bg-gray-50 cursor-pointer">
+                <div onClick={signoutHandler} className="px-4 py-2 hover:bg-gray-50 cursor-pointer">
                   <span className="text-sm text-gray-700">Sign Out</span>
                 </div>
               </div>
