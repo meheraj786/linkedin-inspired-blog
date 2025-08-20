@@ -1,13 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import PostCard from '../PostCard/PostCard'
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown , ThumbsUp,
+  Heart,
+  Lightbulb,
+  Laugh } from 'lucide-react';
 import { getDatabase, onValue, ref } from 'firebase/database';
+import { PiHandsClappingFill } from 'react-icons/pi';
+
 
 const PostList = () => {
     const [isOpen, setIsOpen] = useState(false);
   const [selectedSort, setSelectedSort] = useState('Top');
   const [posts, setPosts]= useState([])
   const db= getDatabase()
+  
+    const reactions = [
+    { icon: <ThumbsUp className="w-5 h-5 text-white" />, bg: "bg-blue-500" },
+    { icon: <PiHandsClappingFill className="w-5 h-5  text-white" />, bg: "bg-green-500" },
+    { icon: <Heart className="w-5 h-5 text-white" />, bg: "bg-red-500" },
+    { icon: <Lightbulb className="w-5 h-5 text-white" />, bg: "bg-yellow-500" },
+    { icon: <Laugh className="w-5 h-5 text-white" />, bg: "bg-cyan-500" },
+  ];
 
   useEffect(() => {
       const postRef = ref(db, "post/");
@@ -29,10 +42,11 @@ const PostList = () => {
     setIsOpen(false);
   };
   return (
-    <div>
+    <div className='pb-20'>
 
       {/* Sort dropdown section */}
-      <div className=" relative w-[555px] pt-1 ">
+      <div className=" relative  w-[555px] pt-1 ">
+  
       <div className="h-[1px] top-[60%] left-0 w-[430px] absolute bg-[#1C1C1C]/30 border-gray-300"></div>
         <div className="flex items-center  justify-end">
           <div className="flex  items-center space-x-1">

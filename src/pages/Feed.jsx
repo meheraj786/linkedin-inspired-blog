@@ -42,11 +42,18 @@ const Feed = () => {
   const [loading, setLoading] = useState(true);
 
   onAuthStateChanged(auth, (user) => {
+
     if (user?.emailVerified) {
       setVerified(true);
-      setLoading(false);
     }
+    setLoading(false)
   });
+  useEffect(() => {
+        if (user && verified) {
+      setLoading(false)
+    }
+  }, [user, verified])
+  
   
   useEffect(() => {
     const postRef = ref(db, "post/");
@@ -80,18 +87,9 @@ const Feed = () => {
     });
   };
 
-  const deleteHandler = (item) => {
-    remove(ref(db, "post/" + item.id));
-    toast.success("Deleted");
-  };
-  const updateHandler = (item) => {
-    update(ref(db, "post/" + item.id), {
-      content: editedText,
-    });
-    toast.success("Updated");
-  };
-  if (!user) return <Navigate to="/" />;
+  
   if (loading) return <CustomLoader />;
+  if (!user) return <Navigate to="/" />;
   if (user && !verified) return <div>Please Verify Your Email</div>;
 
   return (

@@ -5,7 +5,6 @@ import moment from 'moment';
 
 const CommentCard = ({comment}) => {
 
-  console.log(comment, "comment");
   
 return (
   <div className="bg-white rounded-b-[8px] px-4 py-3 max-w-2xl">
