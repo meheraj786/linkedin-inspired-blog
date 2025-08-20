@@ -13,6 +13,7 @@ import LogoSmall from "../../layouts/LogoSmall";
 import { ChevronDown, Crown, Search } from "lucide-react";
 import { useSelector } from "react-redux";
 import { AiFillHome } from "react-icons/ai";
+import { Link, NavLink } from "react-router";
 
 const Navbar = () => {
   const user = useSelector((state) => state.userInfo.value);
@@ -45,10 +46,13 @@ const Navbar = () => {
 
           {user ? (
             <Flex className="gap-x-8  items-baseline text-gray">
+              <NavLink to="/">
               <div className="hover:text-black cursor-pointer">
                 <AiFillHome className="mx-auto text-[24px]" />
                 <span className="text-[12px]">Home</span>
               </div>
+
+              </NavLink>
               <div className="hover:text-black cursor-pointer">
                 <TbUsers className="mx-auto  text-[24px]" />
                 <span className="text-[12px]">My Network</span>
@@ -142,22 +146,21 @@ const Navbar = () => {
 
                   <div className="flex-1">
                     <h3 className="font-semibold text-gray-900 text-[16px]">
-                      Mehraj H.
+                      {user?.displayName}
                     </h3>
                     <p className="text-[14px]  mt-1 leading-relaxed">
-                      I am a tech enthusiast from the Milky Way Galaxy, within
-                      the Orion Arm, orbiting the Sol (Sun) star, living on the
-                      third orbital planet named Earth, in the continent of
-                      Asia, in the country of Bangladesh.
+                      {user?.bio}
                     </p>
                   </div>
                 </div>
 
                 {/* Action Buttons */}
                 <div className="flex space-x-2 mt-4">
+                  <Link to="/profile">
                   <button className="flex-1 py-[2px] px-3 text-sm font-medium text-blue-600 border border-primary rounded-full hover:bg-blue-50 transition-colors">
                     View Profile
                   </button>
+                  </Link>
                   <button className="flex-1 py-[2px] px-3 text-sm font-medium text-white bg-primary rounded-full hover:bg-blue-700 transition-colors">
                     Verify
                   </button>

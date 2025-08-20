@@ -5,6 +5,7 @@ import { IoMdTv } from "react-icons/io";
 import { MdGroups } from "react-icons/md";
 import { PiBookmarkSimpleFill } from "react-icons/pi";
 import { useSelector } from "react-redux";
+import { Link } from "react-router";
 
 const ProfileInfoSidebar = () => {
   const [user, setUser] = useState(null);
@@ -21,6 +22,7 @@ const ProfileInfoSidebar = () => {
 
   return (
     <div className="flex flex-col font-primary">
+      <Link to="/profile">
       <div className="bg-white w-[225px] border border-border rounded-[8px]">
         <div className="top">
           <div className="cover relative object-center rounded-t-[8px] bg-gradient-to-r from-slate-700 via-slate-800 to-slate-900 h-[58px] w-full">
@@ -59,6 +61,7 @@ const ProfileInfoSidebar = () => {
           </p>
         </div>
       </div>
+      </Link>
       <div className="bg-white border border-border p-4 mt-2 w-[225px] rounded-[8px]">
         <p className="text-[12px] mb-3">Profile Views</p>
         <p className="text-[12px]">View All Analytics</p>
