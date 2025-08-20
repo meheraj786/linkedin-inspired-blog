@@ -8,9 +8,9 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
-import Feed from "./pages/feed";
 import Profile from "./pages/Profile";
 import Welcome from './pages/Welcome'
+import Feed from './pages/Feed'
 
 function App() {
   const router = createBrowserRouter([
