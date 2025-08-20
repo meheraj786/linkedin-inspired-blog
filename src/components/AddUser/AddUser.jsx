@@ -18,9 +18,11 @@ const AddUser = () => {
     onValue(userRef, (snapshot) => {
       let arr = [];
       snapshot.forEach((data) => {
-        const user = data.val();
+        const users = data.val();
         const usersId = data.key;
-        arr.push({ ...user, id: usersId });
+        if (usersId!=user?.uid) {
+          arr.push({ ...users, id: usersId });
+        }
       });
       setUsers(arr);
     });

@@ -121,7 +121,7 @@ if (loading) return <CustomLoader />;
                       <Users size={16} className="text-gray-600" />
                     </div>
                     <span className="text-sm font-medium text-gray-700">
-                      Interactive Cares
+                      Creative IT
                     </span>
                   </div>
 
